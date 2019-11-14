@@ -19,7 +19,7 @@ namespace Sudoku
             Board.LoadBoard();
             CreateMap();
             bt_AutoPlay.Enabled = false;
-            
+            //test pugh
             bt_check.Enabled = false;
         }
 
