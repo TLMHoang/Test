@@ -24,6 +24,7 @@ namespace Sudoku
         }
 
         // tạo list chứa ma trận textbox
+        //Test Test
         private List<List<TextBox>> Matrix;
         public List<List<TextBox>> Matrix1 { get => Matrix; set => Matrix = value; }
 
