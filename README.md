@@ -14,14 +14,29 @@ This API is not currently hosted on a public URL. However, it can be easily depl
 
 The project relies on the following key dependencies:
 
-Flask: A lightweight and flexible web framework for building APIs.
-Flask-Migrate: An extension for handling database migrations.
-Flask-SQLAlchemy: An ORM for interacting with the database.
-PostgreSQL: The database used to store product and serial data.
-python-dotenv: For loading environment variables from a .env file.
-Auth0: For authentication and authorization (JWT-based).
+- `Flask`: A lightweight and flexible web framework for building APIs.
+- `Flask-Migrate`: An extension for handling database migrations.
+- `Flask-SQLAlchemy`: An ORM for interacting with the database.
+- `PostgreSQL`: The database used to store product and serial data.
+- `python-dotenv`: For loading environment variables from a .env file.
+- `Auth0`: For authentication and authorization (JWT-based).
 
-### Authentication
+## Authentication
+
+### Info
+
+This API uses Auth0 for authentication and authorization. You'll need to set up an Auth0 application and configure the appropriate environment variables (see Authentication->Setup).
+
+### Setup
+
+Add the following variables, replacing placeholders with your actual values:
+
+- AUTH0_DOMAIN=your_auth0_domain
+- API_AUDIENCE=your_api_audience
+- AUTH0_CLIENT_ID=your_auth0_client_id
+- AUTH0_CLIENT_SECRET=your_auth0_client_secret
+
+## API Endpoints and RBAC
 
 Most endpoints require authentication using a JSON Web Token (JWT). You'll need to include a valid JWT in the Authorization header of your requests. The JWT should be in the format "Bearer <your_jwt>".
 
@@ -70,6 +85,3 @@ The API returns standard HTTP status codes to indicate the success or failure of
 - Requires a JSON body with the product name and an array of IMEIs (e.g., {"name": "Product Z", "imeis": ["123456789012345", "987654321098765"]}).
 - Returns the details of the created product and the successfully created serial numbers.
 - Requires authentication: Yes (requires 'post:products' permission)
-
-
-
