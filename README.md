@@ -10,6 +10,33 @@ The primary goal of this project is to provide a robust and scalable solution fo
 
 This API is not currently hosted on a public URL. However, it can be easily deployed to various cloud platforms or run locally for development and testing purposes.
 
+## Prerequisites
+
+- `Docker Desktop` - Installation instructions for all OSes can be found <a href="https://docs.docker.com/install/" target="_blank">here</a>.
+- `Git`: <a href="https://git-scm.com/downloads" target="_blank">Download and install Git</a> for your system. 
+- `Code editor`: You can <a href="https://code.visualstudio.com/download" target="_blank">download and install VS code</a> here.
+- `AWS Account`
+- `Python version 3.9` Check the current version using:
+```bash
+#  Mac/Linux/Windows 
+python --version
+```
+You can download a specific release version from <a href="https://www.python.org/downloads/" target="_blank">here</a>.
+
+- Python package manager - PIP `24.1.1`. PIP is already installed in Python `3.9.6` downloaded from python.org.
+```bash
+#  Mac/Linux/Windows Check the current version
+pip --version
+# Mac/Linux
+pip install --upgrade pip==24.1.1
+# Windows
+python -m pip install --upgrade pip==24.1.1
+```
+- `AWS-CLI 2.17.0`: you can read docment install AWS-CLI from <a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html" target="_blank">here</a>.
+- `PostgreSQL 16`: The database used to store product and serial data.
+- `Auth0`: For authentication and authorization (JWT-based).
+
+
 ## Project Dependencies
 
 The project relies on the following key dependencies:
@@ -17,15 +44,154 @@ The project relies on the following key dependencies:
 - `Flask`: A lightweight and flexible web framework for building APIs.
 - `Flask-Migrate`: An extension for handling database migrations.
 - `Flask-SQLAlchemy`: An ORM for interacting with the database.
-- `PostgreSQL`: The database used to store product and serial data.
 - `python-dotenv`: For loading environment variables from a .env file.
-- `Auth0`: For authentication and authorization (JWT-based).
+
+## Local Development Setup
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/TLMHoang/CapstoneProject/
+cd ./<youpath>/CapstoneProject
+```
+#### These are the files relevant for the current project:
+```bash
+
+.
+├── AWS
+│   ├── aws-auth-patch.yml
+│   ├── buildspec.yml
+│   ├── ci-cd-codepipeline.cfn.yml 
+│   ├── iam-role-policy.json 
+│   ├── param.txt 
+│   ├── simple_jwt_api.yml 
+│   └── trust.json
+│   └──
+├── BE
+│   ├── __init__.py 
+│   ├── .env 
+│   ├── app.py 
+│   ├── auth.py 
+│   ├── config.py 
+│   ├── Dockerfile 
+│   ├── model.py 
+│   ├── requirements.txt 
+│   ├── test_main.py 
+│   └── testapi.py 
+├── FE #Optional
+│   ├── src
+│   │   ├── app 
+│   │   │   ├── pages 
+│   │   │   │   ├── product-menu 
+│   │   │   │   │   ├── product-form 
+│   │   │   │   │   │   ├── product-form.component.html 
+│   │   │   │   │   │   ├── product-form.component.scss 
+│   │   │   │   │   │   └── product-form.component.ts
+│   │   │   │   │   ├── product-menu.module.ts 
+│   │   │   │   │   ├── product-menu.page.html 
+│   │   │   │   │   ├── product-menu.page.scss 
+│   │   │   │   │   └── product-menu.page.ts
+│   │   │   │   ├── tabs 
+│   │   │   │   │   ├── tabs.module.ts 
+│   │   │   │   │   ├── tabs.page.html 
+│   │   │   │   │   ├── tabs.page.scss 
+│   │   │   │   │   ├── tabs.page.spec.ts 
+│   │   │   │   │   ├── tabs.page.ts 
+│   │   │   │   │   └── tabs.router.module.ts
+│   │   │   │   ├── user-page
+│   │   │   │   │   ├── user-page.module.ts 
+│   │   │   │   │   ├── user-page.page.html 
+│   │   │   │   │   ├── user-page.page.scss 
+│   │   │   │   │   ├── user-page.page.spec.ts 
+│   │   │   │   │   └── user-page.page.ts
+│   │   │   ├── services 
+│   │   │   │   ├── auth.service.ts 
+│   │   │   │   └──  products.service.ts
+│   │   │   ├── app-routing.module.ts 
+│   │   │   ├── app.component.html 
+│   │   │   ├── app.component.spec.ts 
+│   │   │   ├── app.component.ts 
+│   │   │   └── app.module.ts
+│   │   ├── assets 
+│   │   │   ├── icon
+│   │   │   │   └── favicon.png
+│   │   │   └── shapes.svg
+│   │   ├── environments 
+│   │   │   ├── environment.prod.ts 
+│   │   │   └── environment.ts
+│   │   ├── theme
+│   │   │   └── variables.scss
+│   │   ├── global.scss 
+│   │   ├── index.html 
+│   │   ├── karma.conf.js 
+│   │   ├── main.ts 
+│   │   ├── polyfills.ts 
+│   │   ├── test.ts 
+│   │   ├── tsconfig.app.json 
+│   │   ├── tsconfig.spec.json 
+│   │   ├── tslint.json 
+│   │   └── zone-flags.ts
+│   ├── angular.json 
+│   ├── ionic.config.json 
+│   ├── package-lock.json 
+│   ├── package.json 
+│   ├── README.md 
+│   ├── tsconfig.json 
+│   └── tslint.json
+├── buildspec.yml 
+├── Dockerfile 
+├── phone-store.yml 
+├── README.md 
+└── requirements.txt
+```
+
+### 2. Create and activate a virtual environment:
+
+```bash
+cd ./BE
+python -m venv venv
+source venv/bin/activate
+```
+### 3. Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Set up environment variables:
+
+- Create a .env file in the project root directory.
+- Add the following variables, replacing placeholders with your actual values:
+
+### 5. Run database migrations:
+You can skip this step because the code currently only has 1 new migration. there is no migration to update the database, so there is no need to run the command. When you run for the first time, it will automatically create a database for you.
+
+Commend if Need
+```bash
+flask init
+flask db upgrade
+```
+
+### 6. Start the development server:
+```bash
+python app.py
+```
+
+### 7. Run FE (optional)
+
+- Install package for FE
+```bash
+npm install
+```
+- Run : node version lastest can run with command
+```bash
+npm start
+```
 
 ## Authentication
 
 ### Info
 
-This API uses Auth0 for authentication and authorization. You'll need to set up an Auth0 application and configure the appropriate environment variables ([Setup Authentication](###-Setup)).
+This API uses Auth0 for authentication and authorization. You'll need to set up an Auth0 application and configure the appropriate environment variables ([see step 4 above](###-4.-Set-up-environment-variables:)).
 
 ### Setup
 
@@ -45,12 +211,12 @@ Most endpoints require authentication using a JSON Web Token (JWT). You'll need 
 
 The API returns standard HTTP status codes to indicate the success or failure of requests. Common error codes include:
 
-- 400 Bad Request: The request was invalid or malformed.
-- 401 Unauthorized: The request lacked valid authentication credentials.
-- 404 Not Found: The requested resource was not found.
-- 405 Method Not Allowed: The requested HTTP method is not supported for the endpoint.
-- 422 Unprocessable Entity: The request was well-formed but unable to be followed due to semantic errors.
-- 500 Internal Server Error: An unexpected error occurred on the server.
+- `400 Bad Request`: The request was invalid or malformed.
+- `401 Unauthorized`: The request lacked valid authentication credentials.
+- `404 Not Found`: The requested resource was not found.
+- `405 Method Not Allowed`: The requested HTTP method is not supported for the endpoint.
+- `422 Unprocessable Entity`: The request was well-formed but unable to be followed due to semantic errors.
+- `500 Internal Server Error`: An unexpected error occurred on the server.
 
 ### Endpoints
 
@@ -86,6 +252,3 @@ The API returns standard HTTP status codes to indicate the success or failure of
 - Requires a JSON body with the product name and an array of IMEIs (e.g., {"name": "Product Z", "imeis": ["123456789012345", "987654321098765"]}).
 - Returns the details of the created product and the successfully created serial numbers.
 - Requires authentication: Yes (requires 'post:products' permission)
-
-
-
